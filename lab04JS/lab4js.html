@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        a {
+            font-family: Montserrat;
+        }
+    </style>
+</head>
+<body>
+    <h3 style="font-family: Montserrat;">Write a javascript which removes all the &lt;a&gt; tags from a document if their href attribute begins with "http://www.scs.ubbcluj.ro".</h3>
+
+    <a href="http://www.scs.ubbcluj.ro/~forest">forest</a>
+    <a href="http://www.scs.ubbcluj.ro/~whatever">whatever</a>
+    <a href="https://www.google.com">google</a>
+    <a href="https://www.google.com">google</a>
+    <a href="http://www.scs.ubbcluj.ro/~sabina">sabina</a>
+    <a href="https://www.google.com">google</a>
+    <a href="http://www.scs.ubbcluj.ro/~mihoct">mihoct</a>
+    <a href="http://www.scs.ubbcluj.ro/~sabina">sabina</a>
+    <a href="http://www.scs.ubbcluj.ro/~sabina">sabina</a>
+    <a href="https://www.google.com">google</a>
+    <a href="https://www.google.com">google</a>
+    <a href="https://www.google.com">google</a>
+    <a href="http://www.cs.ubbcluj.ro">ubbcluj</a>
+
+
+    <script>
+        var anchors = document.getElementsByTagName("a");
+        for (var i = anchors.length-1; i >= 0; i--) {
+            var h = anchors[i].getAttribute("href");
+            if (h.startsWith("http://www.scs.ubbcluj.ro")) {
+                anchors[i].remove();
+            }
+        }
+    </script>
+
+</body>
+</html>
