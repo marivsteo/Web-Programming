@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: Montserrat;
+  color: white;
+  font-size: x-large;
+  background-color: #1a1f22;
+}
+
+.container {
+	width: 20%;
+	height: 20%;
+  position: absolute;
+  left: 37%;
+  top: 20%;
+  text-align: center;
+} 
+
+input,
+.btn {
+  font-family: Montserrat;
+  padding: 12px;
+  border: none;
+  margin: 10px 0;
+  opacity: 0.85;
+  display: inline-block;
+  outline: none;
+}
+
+input:hover,
+.btn:hover {
+  opacity: 1;
+}
+
+input[type=submit] {
+  background-color: #DC143C;
+  color: white;
+  cursor: pointer;
+  border-radius: 25px;
+  width: 107%;
+  height: 30%;
+  font-weight: bold;
+  font-size: 17px;
+  margin-top: 20px;
+}
+
+input[type=text] {
+  border-radius: 25px;
+  width: 100%;
+  height: 30%;
+  background-color: #373e42;
+  color: white;
+  text-align: center;
+  font-size: 17px;
+  margin-bottom: 2px;
+  text-align: start;
+  text-indent: 30px;
+}
+
+input[type=password] {
+  border-radius: 25px;
+  width: 100%;
+  height: 30%;
+  background-color: #373e42;
+  color: white;
+  text-align: center;
+  font-size: 17px;
+  margin-bottom: 2px;
+  text-align: start;
+  text-indent: 30px;
+}
+
+input[type=submit]:hover {
+  background-color:rgb(248, 27, 71);
+}
+
+.bottomright {
+  position: fixed;
+  bottom: 0;
+  right: 5%;
+  font-weight: normal;
+  font-family: Montserrat;
+  font-size: 10px;
+}
+
+</style>
+
+</head>
+<body>
+<div class="container">
+  <i class="material-icons" style="font-size: 50px;">account_circle</i>
+  <h3>Account login</h3>
+  <form action="/webprog/lab6/loginpage.php">
+    <div class="row">
+      <div class="col">
+        <input type="text" name="username" placeholder="Username" required>
+        <br>
+        <input type="password" name="password" placeholder="Password" required>
+        <br>
+        <input type="submit" value="LOGIN">
+      </div>
+      
+    </div>
+  </form>
+  <br><br>
+</div>
+<!-- <div class="bottomright">
+  <p>Contact admin for credentials</p>
+</div> -->
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: Montserrat;
+  background-color: #1a1f22;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* style the container */
+.container {
+	width: 50%;
+	height: 50%;
+  position: absolute;
+  left: 25%;
+  top: 25%;
+  border-radius: 20px;
+  background-color: #242b30;
+  color: aliceblue;
+  padding: 20px 0 90px 0;
+} 
+
+p {
+  padding-top: 40px;
+  padding-left: 230px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+h3 {
+  color: aliceblue;
+  font-size: 50px;
+  text-align: center;
+  padding-top: 65px;
+}
+
+</style>
+
+</head>
+<body>
+  <!-- <i class="material-icons" style="font-size: 20px; text-align: center;">gesture</i> -->
+
+  <h3>Your grades <i class="material-icons" style="font-size: 40px; text-align: center;">school</i> </h3>
+<div class="container">
+  <p id="grades"></p>
+</div>
+
+<script src="confetti.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function myFunction() {
+        xmlhttp=GetXmlHttpObject(); 
+        if (xmlhttp==null)  {
+            alert ("Your browser does not support XMLHTTP!");
+            return;
+        }
+        var url="studentgrades.php";
+        xmlhttp.onreadystatechange=stateChanged;
+        xmlhttp.open("GET",url,true);
+        xmlhttp.send(null);
+    }
+
+    function stateChanged() {
+        if (xmlhttp.readyState==4) {
+            document.getElementById("grades").innerHTML=xmlhttp.responseText;
+        }
+    }
+
+
+    function GetXmlHttpObject() {
+        if (window.XMLHttpRequest) {        // code for IE7+, Firefox, Chrome, Opera, Safari
+            return new XMLHttpRequest();
+        }
+        if (window.ActiveXObject) {         // code for IE6, IE5
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        return null;
+    } 
+
+    $(document).ready(function() {
+        myFunction();
+    });
+
+</script>
+
+<script>confetti.start(3000);</script>
+
+</body>
+</html>

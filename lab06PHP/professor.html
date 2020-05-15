@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+.scrollbar
+{
+    margin-left: 30px;
+    float: left;
+    height: 300px;
+    width: 65px;
+    background: #F5F5F5;
+    overflow-y: scroll;
+    margin-bottom: 25px;
+}
+
+body::-webkit-scrollbar {
+    width: 12px;
+    background-color: #1a1f22;
+}
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    border-radius: 10px;
+    background-color: #1a1f22;
+}
+body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #DC143C;
+}
+
+body {
+  font-family: Montserrat;
+  color: white;
+  font-size: x-large;
+  background-color: #1a1f22;
+}
+
+.container {
+	width: 20%;
+	height: 20%;
+  position: absolute;
+  left: 37%;
+  top: 2%;
+  text-align: center;
+} 
+
+.container2 {
+	width: 20%;
+	height: 20%;
+  position: absolute;
+  left: 37%;
+  top: 85%;
+  text-align: center;
+} 
+
+.container3 {
+	width: 20%;
+	height: 20%;
+  position: absolute;
+  left: 37%;
+  top: 140%;
+  text-align: center;
+  padding-bottom: 100px;
+} 
+
+input,
+.btn, button {
+  font-family: Montserrat;
+  padding: 12px;
+  border: none;
+  margin: 10px 0;
+  opacity: 0.85;
+  display: inline-block;
+  outline: none;
+}
+
+input:hover,
+.btn:hover {
+  opacity: 1;
+}
+
+input[type=submit] {
+  background-color: #DC143C;
+  color: white;
+  cursor: pointer;
+  border-radius: 25px;
+  width: 107%;
+  height: 30%;
+  font-weight: bold;
+  font-size: 17px;
+  margin-top: 20px;
+}
+
+input[type=text] {
+  border-radius: 25px;
+  width: 100%;
+  height: 10%;
+  background-color: #373e42;
+  color: white;
+  text-align: center;
+  font-size: 17px;
+  margin-bottom: 2px;
+  text-align: start;
+  text-indent: 30px;
+}
+
+input[type=password] {
+  border-radius: 25px;
+  width: 100%;
+  height: 30%;
+  background-color: #373e42;
+  color: white;
+  text-align: center;
+  font-size: 17px;
+  margin-bottom: 2px;
+  text-align: start;
+  text-indent: 30px;
+}
+
+input[type=submit]:hover {
+  background-color:rgb(250, 25, 70);
+}
+
+button {
+    background-color: #DC143C;
+  color: white;
+  cursor: pointer;
+  border-radius: 25px;
+  width: 107%;
+  height: 30%;
+  font-weight: bold;
+  font-size: 17px;
+  margin-top: 20px;
+}
+
+button:hover {
+    background-color:rgb(250, 25, 70);
+}
+
+</style>
+
+</head>
+<body>
+<div class="container">
+  <h3>Select group</h3>
+        <input id="groupnr" type="text" name="groupnr" placeholder="Group" required>
+        <br>
+        <button onclick="showStudents()">SHOW</button>
+        <p id="students"></p>
+        <button onclick="previousFunction()" style="width: 35%; margin-left: 20px;"> <i class="material-icons">arrow_back</i> </button>
+	    <button onclick="nextFunction()" style="width: 35%;"> <i class="material-icons">arrow_forward</i> </button>
+  <br><br>
+</div>
+<br><br>
+<div class="container2">
+    <h3>Add grade</h3>
+    <form action="/webprog/lab6/addGrade.php">
+        <div class="row">
+            <div class="col">
+                <input id="sid" type="text" name="sid" placeholder="Student ID" required>
+                <input id="course" type="text" name="course" placeholder="Course" required>
+                <input id="grade" type="text" name="grade" placeholder="Grade" required>
+                <input type="submit" value="ADD">
+            </div>
+        </div>
+    </form>
+    <p id="added"></p>
+    <br><br>
+
+</div>
+<br><br>
+<div class="container3">
+    <h3>Modify grade</h3>
+    <form action="/webprog/lab6/modifyGrade.php">
+        <div class="row">
+            <div class="col">
+                <input id="gid" type="text" name="gid" placeholder="Grade ID" required>
+                <input id="ng" type="text" name="ng" placeholder="New grade" required>
+                <input type="submit" value="MODIFY">
+            </div>
+        </div>
+    </form>
+
+    <p id="modified"></p>
+    <br><br>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    var number = 1;
+
+    function showStudents() {
+        
+        xmlhttp=GetXmlHttpObject(); 
+        if (xmlhttp==null)  {
+            alert ("Your browser does not support XMLHTTP!");
+            return;
+        }
+        var url="selectstudents.php";
+        url = url + "?groupnr=" + document.getElementById("groupnr").value + "&nr=" + number;
+        xmlhttp.onreadystatechange=stateChanged;
+        xmlhttp.open("GET",url,true);
+        xmlhttp.send(null);
+    }
+
+    function stateChanged() {
+        if (xmlhttp.readyState==4) {
+            document.getElementById("students").innerHTML=xmlhttp.responseText;
+        }
+    }
+
+    function nextFunction(){
+        number = number + 4;
+        showStudents();
+    }
+
+    function previousFunction(){
+        if( number >  3 )
+            number = number - 4;
+        showStudents();
+    }
+
+    function modifyGrade() {
+        xmlhttp=GetXmlHttpObject(); 
+        if (xmlhttp==null)  {
+            alert ("Your browser does not support XMLHTTP!");
+            return;
+        }
+        var url="modifyGrade.php";
+        url = url + "?gid=" + document.getElementById("gid").value;
+        url = url + "?ng=" + document.getElementById("ng").value;
+        xmlhttp.onreadystatechange=stateChanged2;
+        xmlhttp.open("GET",url,true);
+        xmlhttp.send(null);
+    }
+
+    function stateChanged2() {
+        if (xmlhttp.readyState==4) {
+            document.getElementById("modified").innerHTML=xmlhttp.responseText;
+        }
+    }
+
+    function addGrade() {
+        xmlhttp=GetXmlHttpObject(); 
+        if (xmlhttp==null)  {
+            alert ("Your browser does not support XMLHTTP!");
+            return;
+        }
+        var url="addGrade.php";
+        url = url + "?sid=" + document.getElementById("sid").value;
+        url = url + "?course=" + document.getElementById("course").value;
+        url = url + "?grade=" + document.getElementById("grade").value;
+        xmlhttp.onreadystatechange=stateChanged3;
+        xmlhttp.open("GET",url,true);
+        xmlhttp.send(null);
+    }
+
+    function stateChanged3() {
+        if (xmlhttp.readyState==4) {
+            document.getElementById("added").innerHTML=xmlhttp.responseText;
+        }
+    }
+
+
+    function GetXmlHttpObject() {
+        if (window.XMLHttpRequest) {        // code for IE7+, Firefox, Chrome, Opera, Safari
+            return new XMLHttpRequest();
+        }
+        if (window.ActiveXObject) {         // code for IE6, IE5
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        return null;
+    } 
+
+    $(document).ready(function() {
+        
+    });
+
+</script>
+
+</body>
+</html>
