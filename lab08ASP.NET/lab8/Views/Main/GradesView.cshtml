@@ -1,0 +1,27 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Your grades</title>
+    
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script>
+                    $(document).ready(function(){
+                        const session = @Session["sid"];
+                        $.post("/Main/GetGradesForStudent", {sid : session},
+                            function(data,status) {
+                                $("#maindiv").html(data);
+                        });
+                    });
+    </script>
+</head>
+<body>
+List of grades:
+    <div id="maindiv"></div><br />
+</body>
+</html>

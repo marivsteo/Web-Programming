@@ -1,0 +1,231 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>FilterStudents</title>
+    
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.jqueryui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    <style>
+            body {
+                font-family: Proxima Nova;
+                color: white;
+                font-size: x-large;
+                background-color: #191414;
+                text-align: center;
+            }
+    
+            .container {
+                /*width: 20%;*/
+                /*height: 20%;*/
+                /*position: absolute;*/
+                /*left: 37%;*/
+                /*top: 20%;*/
+                text-align: center;
+                padding-top: 100px;
+            }
+    
+            input,
+            .btn {
+                font-family: Proxima Nova;
+                padding: 12px;
+                border: none;
+                margin: 10px 0;
+                opacity: 0.85;
+                display: inline-block;
+                outline: none;
+                font-weight: normal;
+            }
+    
+            input:hover,
+            .btn:hover {
+                opacity: 1;
+                background-color: #657478;
+            }
+            
+            button {
+            border: none;
+            }
+    
+            input[type=submit], button {
+                font-family: Proxima Nova;
+                letter-spacing: 2px;
+                background-color: #1DB954;
+                color: white;
+                cursor: pointer;
+                border-radius: 25px;
+                width: 20%;
+                height: 7%;
+                font-weight: bold;
+                font-size: 17px;
+                margin-top: 20px;
+            }
+    
+            input[type=text] {
+                border-radius: 5px;
+                width: 20%;
+                height: 6%;
+                background-color: #373e42;
+                color: white;
+                text-align: center;
+                font-size: 17px;
+                margin-bottom: 2px;
+                text-align: start;
+                text-indent: 30px;
+            }
+    
+            input[type=password] {
+                border-radius: 5px;
+                width: 20%;
+                height: 6%;
+                background-color: #373e42;
+                color: white;
+                text-align: center;
+                font-size: 17px;
+                margin-bottom: 2px;
+                text-align: start;
+                text-indent: 30px;
+            }
+    
+            input[type=submit]:hover, button:hover {
+                background-color: #1DB954;
+            }
+    
+            ::placeholder {
+                color: rgba(255, 255, 255, 0.71);
+            }
+    
+            input:focus {
+                background-color: #657478;
+            }
+    
+        </style>
+    
+    <script>
+                    $(document).ready(function(){
+                        $("#button").click(function() {
+                            FormValidation();
+                            $.get("/Main/GetStudentsFromGroup", {group_id : $("#group_id").val(), n1 : n1, n2 : n2},
+                                function(data,status) {
+                                    $("#maindiv").html(data);
+                            });
+                        });
+                        
+                        $("#back").click(function() {
+                        if (n1 > 3) {
+                            n1 = n1 - 4;
+                            n2 = n2 - 4;
+                        }
+                        $.get("/Main/GetStudentsFromGroup", {group_id : $("#group_id").val(), n1 : n1, n2 : n2},
+                        function(data,status) {
+                        $("#maindiv").html(data);
+                        });
+                        });
+                        
+                        $("#forward").click(function() {
+                        if (n1 < 7) {
+                        n1 = n1 + 4;
+                        n2 = n2 + 4;
+                        }
+                        $.get("/Main/GetStudentsFromGroup", {group_id : $("#group_id").val(), n1 : n1, n2 : n2},
+                        function(data,status) {
+                        $("#maindiv").html(data);
+                        });
+                        });
+                        
+                    });
+                    
+                    var n1 = 1;
+                    var n2 = 5;
+                    
+                    function validateForm() {
+                      var x = document.forms["myForm"]["course"].value;
+                      var y = document.forms["myForm"]["grade"].value;
+                      var z = document.forms["myForm"]["sid"].value;
+                      if (x == "" || y == "" || z == "") {
+                        alert("All input fields must be filled out!");
+                        return false;
+                      }
+                      else { 
+                        addGrade();
+                      }
+                    }
+                    
+                    function validateForm2() {
+                        var a = document.forms["myForm2"]["course2"].value;
+                        var b = document.forms["myForm2"]["grade2"].value;
+                        var c = document.forms["myForm2"]["sid2"].value;
+                        if (a == "" || b == "" || c == "") {
+                            alert("All input fields must be filled out!");
+                            return false;
+                        }
+                        else {
+                            updateGrade();
+                        }
+                    }
+                    
+                    function addGrade(){
+                        $.get("/Main/AddGrade", {course : $("#course").val(), grade : $("#grade").val(), sid : $("#sid").val()},
+                            function(data,status) {
+                                $("#maindiv2").html(data);
+                            }
+                        );
+                    }
+                    
+                    function updateGrade() {
+                        $.get("/Main/UpdateGrade", {course : $("#course2").val(), grade : $("#grade2").val(), sid : $("#sid2").val()},
+                            function(data,status) {
+                                $("#maindiv3").html(data);
+                            }
+                        );
+                    }
+                    
+                    function FormValidation(){
+                         
+                        var fn=document.getElementById('group_id').value;
+                        if( fn === "" || isNaN(fn)){
+                            alert('Please enter a number for the group');
+                            document.getElementById('group_id').style.border = 'red';
+                            document.getElementById('group_id').style.borderColor = "red";
+                            return false;
+                        }else{
+                            document.getElementById('group_id').style.borderColor = "green";
+                        }
+                    }
+                    
+    </script>
+</head>
+<body>
+    <input type="text" id="group_id" placeholder="group"/><br />
+<input id="button" type="submit" value="GET STUDENTS" />
+<br />
+<div id="maindiv" style="text-align: center"></div><br />
+<button id="back"  style="height: 10%; width: 15%"> <i class="material-icons">arrow_back</i> </button>
+<button id="forward" style="height: 10%; width: 15%" > <i class="material-icons">arrow_forward</i> </button>
+<form name="myForm" onsubmit="validateForm()">
+<input type="text" id="course" placeholder="course"/> <br/>
+<input type="text" id="grade" placeholder="grade"/> <br/>
+<input type="text" id="sid" placeholder="student id"/> <br/>
+<input id="button2" type="submit" value="ADD GRADE"/>
+</form>
+<div id="maindiv2"></div><br />
+
+<form name="myForm2" onsubmit="validateForm2()">
+<input type="text" id="course2" placeholder="course"/> <br/>
+<input type="text" id="grade2" placeholder="grade"/><br/>
+<input type="text" id="sid2" placeholder="student id"/><br/>
+<input id="button3" type="submit" value="UPDATE GRADE"/>
+</form>
+<div id="maindiv3"></div><br />
+
+</body>
+</html>
