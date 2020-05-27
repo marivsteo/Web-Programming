@@ -169,7 +169,8 @@
                             return false;
                         }
                         else {
-                            updateGrade();
+                            if (confirm("Sure you want to update the grade?"))
+                                updateGrade();
                         }
                     }
                     
