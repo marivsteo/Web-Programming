@@ -5,7 +5,7 @@ Assignments for the Web Programming Course I attended in the 4th semester of Uni
 
 👔  [LAB 2 - CSS](https://github.com/marivsteo/Web-Programming/tree/master/lab02CSS)
 
-👖   [LAB 3 - CSS Layouts](https://github.com/marivsteo/Web-Programming/tree/master/lab03CSSLayouts)
+🧥  [LAB 3 - CSS Layouts](https://github.com/marivsteo/Web-Programming/tree/master/lab03CSSLayouts)
 
 🧠  [LAB 4 - JAVASCRIPT](https://github.com/marivsteo/Web-Programming/tree/master/lab04JS)
 
